@@ -1,4 +1,5 @@
 <template>
+<!-- general wrapper -->
   <div class="wrapper flexBox">
     <div class="name flexBox">{{dataItem.name}}</div>
     <div class="phone flexBox">{{dataItem.phone}}</div>
@@ -17,14 +18,17 @@ export default {
 </script>
 
 <style scoped>
+/* add flex  */
 .flexBox {
   display: flex;
   justify-content: start;
 }
+/* wrapper styles  */
 .wrapper {
   width: 60%;
   border: 1px black solid;
 }
+/* name and phone styles */
 .name {
   width: 40%;
   padding: 10px;

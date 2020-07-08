@@ -1,12 +1,15 @@
 <template>
   <div id="app">
+    <!-- add Button -->
     <span @click="addItem = true" class="btn">Добавить</span>
     <AddItem v-if="addItem" @saveInfo="saveInfo" />
     <div>
+     <!-- general wrapper -->
       <div class="wrapper flexBox">
         <div @click="sortName" class="nameRow flexBox">Имя</div>
         <div @click="sortPhone" class="phoneRow flexBox">Телефон</div>
       </div>
+      <!-- add Item components -->
       <Item v-for="dataItem of items" v-bind:dataItem="dataItem" />
     </div>
   </div>
@@ -23,7 +26,7 @@ export default {
     Item,
     AddItem
   },
-
+// add state
   data() {
     return {
       items: [],
@@ -31,7 +34,7 @@ export default {
       sortParam: ""
     };
   },
-
+  // localstarage
   created() {
     if (localStorage.getItem("items")) {
       this.items = JSON.parse(localStorage.getItem("items"));
@@ -39,6 +42,7 @@ export default {
   },
 
   methods: {
+    // save function
     saveInfo(info) {
       this.items.push(info);
       if (localStorage.getItem("items")) {
@@ -50,9 +54,11 @@ export default {
       }
       this.addItem = false;
     },
+    // sort function by name
     sortName() {
       this.items.sort((a, b) => (a > b ? 1 : -1));
     },
+    // sort function by phone number
     sortPhone() {
       this.items.sort((a, b) => (a < b ? 1 : -1));
     }
@@ -69,6 +75,7 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+/* button styles */
 .btn {
   display: block;
   width: 120px;
@@ -79,14 +86,17 @@ export default {
   border-radius: 20px;
   cursor: pointer;
 }
+/* add flex  */
 .flexBox {
   display: flex;
   justify-content: start;
 }
+/* wrapper styles  */
 .wrapper {
   width: 60%;
   border: 1px black solid;
 }
+/* name and phone styles */
 .nameRow {
   width: 40%;
   padding: 10px;
