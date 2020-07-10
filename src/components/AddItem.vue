@@ -16,9 +16,7 @@
     <div class="firstRow">
       <div class="name">Начальник</div>
       <select v-model="info.manager" class="phone">
-        <option disabled value></option>
-        <option>Олег петров</option>
-        <option>Максим Смолов</option>
+        <option v-for="items of items">{{items.name}}</option>
       </select>
     </div>
     <!-- Button save -->
@@ -28,6 +26,8 @@
 
 <script>
 export default {
+   props: ['items'],
+  
   data() {
     return {
       info: {

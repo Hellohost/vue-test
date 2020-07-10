@@ -1,10 +1,11 @@
+
 <template>
   <div id="app">
     <!-- add Button -->
-    <span @click="addItem = true" class="btn">Добавить</span>
-    <AddItem v-if="addItem" @saveInfo="saveInfo" />
+    <span @click="isShownAddingItemForm = true" class="btn">Добавить</span>
+    <AddItem v-if="isShownAddingItemForm" @saveInfo="saveInfo" v-bind:items="items"/>
     <div>
-     <!-- general wrapper -->
+      <!-- general wrapper -->
       <div class="wrapper flexBox">
         <div @click="sortName" class="nameRow flexBox">Имя</div>
         <div @click="sortPhone" class="phoneRow flexBox">Телефон</div>
@@ -26,12 +27,11 @@ export default {
     Item,
     AddItem
   },
-// add state
+  // add state
   data() {
     return {
       items: [],
-      addItem: false,
-      sortParam: ""
+      isShownAddingItemForm: false
     };
   },
   // localstarage
@@ -45,22 +45,16 @@ export default {
     // save function
     saveInfo(info) {
       this.items.push(info);
-      if (localStorage.getItem("items")) {
-        const infoArr = JSON.parse(localStorage.getItem("items"));
-        infoArr.push(info);
-        localStorage.setItem("items", JSON.stringify(infoArr));
-      } else {
-        localStorage.setItem("items", JSON.stringify(this.items));
-      }
-      this.addItem = false;
+      localStorage.setItem("items", JSON.stringify(this.items));
+      this.isShownAddingItemForm = false;
     },
     // sort function by name
     sortName() {
-      this.items.sort((a, b) => (a > b ? 1 : -1));
+      this.items.sort((a, b) => (a.name > b.name ? 1 : -1));
     },
     // sort function by phone number
     sortPhone() {
-      this.items.sort((a, b) => (a < b ? 1 : -1));
+      this.items.sort((a, b) => (a.phone < b.phone ? 1 : -1));
     }
   }
 };
